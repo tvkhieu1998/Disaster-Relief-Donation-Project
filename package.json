@@ -1,0 +1,38 @@
+{
+  "name": "be-package",
+  "version": "1.0.0",
+  "description": "This is nvp package of project",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon ./src/server.js",
+    "start": "node  ./src/server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "GiangLe",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcrypt": "5.1.1",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "16.4.5",
+    "express": "4.21.0",
+    "express-handlebars": "^8.0.1",
+    "jsonwebtoken": "9.0.2",
+    "moment": "^2.30.1",
+    "mssql": "11.0.1",
+    "qs": "^6.13.1",
+    "sequelize": "6.37.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "3.1.7",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
+  }
+}

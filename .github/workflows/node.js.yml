@@ -1,0 +1,44 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Set up environment variables
+      run: |
+        echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
+        echo "SERVER_HOST_NAME=${{ secrets.SERVER_HOST_NAME }}" >> .env
+        echo "DB_HOST_URL=${{ secrets.DB_HOST_URL }}" >> .env
+        echo "SERVER_HOST_DB_USER=${{ secrets.SERVER_HOST_DB_USER }}" >> .env
+        echo "SERVER_HOST_DB_PASSWORD=${{ secrets.SERVER_HOST_DB_PASSWORD }}" >> .env
+        echo "SERVER_HOST_DB_NAME=${{ secrets.SERVER_HOST_DB_NAME }}" >> .env
+        echo "SERVER_JSWTOKEN=${{ secrets.SERVER_JSWTOKEN }}" >> .env
+    - run: npm ci
+    - run: npm run start &
+    - name: Wait for Server to Start
+      run: |
+        sleep 5
+        if curl -f http://localhost:3000; then
+          echo "Server is running successfully."
+        else
+          echo "Server failed to start." && exit 1
+        fi
+    - run: npm test

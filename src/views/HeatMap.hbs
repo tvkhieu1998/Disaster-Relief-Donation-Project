@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+</head>
+
+<body>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+    <div class="button-container">
+        <button onclick="setMapView(16.047079, 108.206230)">Đà Nẵng</button>
+        <button onclick="setMapView(21.028511, 105.804817)">Hà Nội</button>
+        <button onclick="setMapView(10.823099, 106.629662)">Hồ Chí Minh</button>
+    </div>
+</body>
+
+<script>
+    let map = L.map('map').setView([16.047079, 108.206230], 6); // Set to Vietnam coordinates
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var heatData = [
+        [16.047079, 108.206230, 1],  // Đà Nẵng
+        [21.028511, 105.804817, 0.5],  // Hà Nội
+        [10.823099, 106.629662, 0.2]   // Hồ Chí Minh
+
+    ];
+
+    var heat = L.heatLayer(heatData, {
+        radius: 50,       // Bán kính ảnh hưởng của mỗi điểm
+        blur: 30,         // Mức độ làm mờ
+        maxZoom: 5       // Mức phóng tối đa
+    }).addTo(map);
+    const setMapView = async (lat, lng) => {
+        await map.setView([lat, lng], 10); // Set zoom level to 10
+    }
+</script>
+
+</html>
