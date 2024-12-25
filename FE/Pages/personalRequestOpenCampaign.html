@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request Open Campaign </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/Assets/css/styles.css">
+</head>
+<body >
+<header class="container" id="header-placeholder"></header>
+<div class="container bg-light min-vh-100 pt-2 pb-2">
+    <div class="text-center py-3">
+        <span class="fs-3 fw-bold">TÌNH HÌNH THIÊN TAI ĐANG HOẠT ĐỘNG</span><br>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="col-3" scope="col">Tên cơn bão</th>
+                <th scope="col">Miêu tả</th>
+            </tr>
+            </thead>
+            <tbody id="disasters-result">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="container text-center mt-3 pb-3" id="paging">
+    </div>
+    <form id="createCampaignForm">
+        <div class="text-center py-3">
+            <span class="fs-3 fw-bold">TẠO MỚI CHIẾN DỊCH TỪ THIỆN</span><br>
+            <span class="fs-4 fst-italic">(Các trường có dấu * không được bỏ trống)</span>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignId" class="form-label">Tên chiến dịch từ thiện: (*) </label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="campaignId" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập tên chiến dịch ...">
+            </div>
+            <div class="form-text text-danger errorField" id="campaignId-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignDesc" class="form-label">Miêu tả mục tiêu chiến dịch: (*) </label>
+            <div class="input-group">
+                <textarea  class="form-control" id="campaignDesc" rows="4" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ..."></textarea>
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignDesc-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignRemaining" class="form-label">Số tiền hiện có: (*) </label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="campaignRemaining" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ..." min="0">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignRemaining-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignBudget" class="form-label">Số tiền mục tiêu: (*) </label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="campaignBudget"
+                       aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ..." min="0">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignBudget-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignStatus" class="form-label">Trạng thái chiến dịch: (*) </label>
+            <div class="input-group">
+                <select class="form-control" id="campaignStatus" aria-describedby="basic-addon3 basic-addon4">
+                    <option value="" disabled selected>Chọn trạng thái...</option>
+                    <option value="Stop">Dừng</option>
+                    <option value="Inprogress">Đang hoạt động</option>
+                </select>
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignStatus-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignDisasterId" class="form-label">Tên thiên tai: (*) </label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="campaignDisasterId" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ...">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignDisasterId-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignDamages" class="form-label">Tổng số tiền thiệt hại do thiên tai gây ra: (*) </label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="campaignDamages" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ..." min="0">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignDamages-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignStartDate" class="form-label">Ngày bắt đầu chiến dịch: (*) </label>
+            <div class="input-group">
+                <input type="datetime-local" class="form-control" id="campaignStartDate" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ...">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignStartDate-error"></div>
+        </div>
+        <div class="input-form-field px-5 my-4">
+            <label for="campaignEndDate" class="form-label">Ngày kết thúc chiến dịch: (*) </label>
+            <div class="input-group">
+                <input type="datetime-local" class="form-control" id="campaignEndDate" aria-describedby="basic-addon3 basic-addon4"
+                       placeholder="Nhập mã tổ chức ...">
+            </div>
+            <div class="col-8 text-danger errorField" id="campaignEndDate-error"></div>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-secondary" onclick="gotoPage('/Pages/personal.html')">Quay về trang
+                cá nhân</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary " id="finalButton" onclick="createCampaignCharity()">Tạo mới</button>
+        </div>
+    </form>
+</div>
+<footer id="footer-placeholder">
+</footer>
+<script src="/Assets/js/includeHeaderFooter.js"></script>
+<script src="/Assets/js/Authentication.js"></script>
+<script src="/Assets/js/AccessValidator.js"></script>
+<script src="/Assets/js/campaignCharityController.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    getAllDisater(1);
+</script>
+</body>
+</html>
